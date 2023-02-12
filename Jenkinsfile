@@ -11,8 +11,7 @@ pipeline {
             steps {
 
                 sh 'docker build --pull --rm -f "Dockerfile" -t botit:latest "."'
- 
-                }    
+    
             }                                    
         }
     }
