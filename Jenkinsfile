@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        EMAIL_TO = 'rana.hesham2017@gmail.com'
-    }
     stages {
         boolean testPassed = true
         stage(test) {
@@ -25,9 +22,17 @@ pipeline {
                 }
             }else{
                 emailext body: 'Test failed: Check console output at $BUILD_URL to view the results',
-                to: "${EMAIL_TO}", 
+                to: "rana.hesham2017@gmail.com", 
                 subject: 'Test failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER' 
             }
         }
     }
+    post {
+        always {
+          script {
+            if (currentBuild.currentResult != 'FAILURE') {
+              step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "rana.hesham2017@gmail.com", sendToIndividuals: true])
+            }
+          }
+   }
 }
