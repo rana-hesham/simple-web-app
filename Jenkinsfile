@@ -16,11 +16,6 @@ pipeline {
                     sh 'docker image push ranahesham/botit:v1.1'
                 }
             }
-            if (currentBuild.currentResult != 'ok'){
-                emailext body: 'Test failed: Check console output at $BUILD_URL to view the results',
-                to: "rana.hesham2017@gmail.com", 
-                subject: 'Test failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER' 
-            }
         }
     }
     post {
