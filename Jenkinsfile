@@ -34,5 +34,6 @@ pipeline {
               step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "rana.hesham2017@gmail.com", sendToIndividuals: true])
             }
           }
+        }
    }
 }
