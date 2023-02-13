@@ -1,3 +1,4 @@
+slackChannelName = 'flask-web-app'
 pipeline {
     agent any
     stages {
@@ -25,6 +26,20 @@ pipeline {
               step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "rana.hesham2017@gmail.com", sendToIndividuals: true])
             }
           }
+        }
+        success {
+            slackSend(
+                    message: "ٍSuccessful tests, great success!",
+                    channel: "#${slackChannelName}",
+                    color: "success"
+            )
+        }
+        failure {
+            slackSend(
+                    message: "Test failed",
+                    channel: "#${slackChannelName}",
+                    color: "danger"
+            )
         }
    }
 }
