@@ -8,13 +8,14 @@ pipeline {
             }                                    
         }
         stage(build) {
-                steps {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'username', passwordVariable: 'pass')]) {
-                        sh 'docker login -u ${username} -p ${pass}'
-                        sh 'docker build --pull --rm -f "Dockerfile" -t botit:latest "."'
-                        sh 'docker tag botit:latest ranahesham/botit:v1.1'
-                        sh 'docker image push ranahesham/botit:v1.1'
-                    }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'username', passwordVariable: 'pass')]) {
+                    sh 'docker login -u ${username} -p ${pass}'
+                    sh 'docker build --pull --rm -f "Dockerfile" -t botit:latest "."'
+                    sh 'docker tag botit:latest ranahesham/botit:v1.1'
+                    sh 'docker image push ranahesham/botit:v1.1'
+                }
+            }
             if (currentBuild.currentResult != 'ok'){
                 emailext body: 'Test failed: Check console output at $BUILD_URL to view the results',
                 to: "rana.hesham2017@gmail.com", 
