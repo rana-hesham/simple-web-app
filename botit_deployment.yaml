@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: botit-deployment
+spec:
+  selector:
+    matchLabels:
+      app: botit-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: botit-deployment
+    spec:
+      containers:
+      - name: simplewebapp
+        image: ranahesham/botit:v1.1
+        ports:
+        - containerPort: 8888
